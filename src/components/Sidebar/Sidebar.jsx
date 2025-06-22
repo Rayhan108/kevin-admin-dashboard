@@ -20,7 +20,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-const user = false;
+  const [user,setUser]=useState(true);
+
   const routes = [
     {
       path: "/",
@@ -175,13 +176,13 @@ const user = false;
       <div className="absolute bottom-5 w-[90%] px-5">
         {user ? (
           <Link to="/sign-in">
-            <button className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
+            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
               <span className="text-lg text-title font-bold">Login</span>
             </button>
           </Link>
         ) : (
           <Link to="">
-            <button className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
+            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
               <RiLogoutCircleLine className="w-7 h-7 font-bold text-2xl text-white rotate-90" />
               <span className="text-lg text-title font-bold">Logout</span>
             </button>

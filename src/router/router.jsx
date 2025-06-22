@@ -6,8 +6,9 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import Verify from "../pages/Verify/Verify";
 import Signin from "../pages/SignIn/Signin";
 import Forgotpass from "../pages/ForgotPass/ForgotPass";
-import SignUp from "../pages/SignUp/SignUp";
+
 import { createBrowserRouter } from "react-router-dom";
+import PasswordReset from "../pages/PasswordReset/PasswordReset";
 
 
 const router = createBrowserRouter([
@@ -16,8 +17,8 @@ const router = createBrowserRouter([
     element: <Signin/>,
   },
   {
-    path: "/sign-up",
-    element: <SignUp/>,
+    path: "/passReset",
+    element: <PasswordReset/>,
   },
   {
     path: "/verify",

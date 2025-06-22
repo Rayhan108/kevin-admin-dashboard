@@ -6,8 +6,7 @@ import dayjs from "dayjs";
 import { SlArrowLeft } from "react-icons/sl";
 import Overview from "../../components/Overview/Overview";
 import PracticeSession from "../../components/PracticeSession/PracticeSession";
-import RecentActivity from "../../components/RecentActivity/RecentActivity";
-import Question from "../../components/RecentActivity/Question";
+
 import { ConfigProvider } from "antd";
 import UserTable from "../../components/RecentActivity/UserTable";
 

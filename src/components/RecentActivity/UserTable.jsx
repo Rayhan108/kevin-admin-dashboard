@@ -135,7 +135,7 @@ const UserTable = () => {
           backgroundColor: "white",
           borderRadius: "8px",
           boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-          padding: '5px', // Reduced padding
+          padding: '5px', 
         }}
       />
     </div>

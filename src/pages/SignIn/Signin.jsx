@@ -4,10 +4,10 @@ import { useForm } from 'react-hook-form';
 
 import backgroundImg from '../../assets/bgImg.jpg';
 import logo from '../../assets/YL 2.png';
-import { FcGoogle } from "react-icons/fc";
-import { FaApple } from 'react-icons/fa';
+
 import {  AiOutlineEyeInvisible } from 'react-icons/ai';
 import { RiEyeCloseLine } from "react-icons/ri";
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Signin = () => {
@@ -18,10 +18,11 @@ const Signin = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log('Form Data:', data);
     // Handle sign-in logic here
+    navigate('/forget-password')
   };
 
   return (
@@ -106,25 +107,6 @@ const Signin = () => {
             </button>
           </form>
 
-          {/* Alternative Sign-ins */}
-          <div className="my-6 text-gray-700 font-semibold">Or</div>
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-  <button className="flex-1 flex items-center justify-center gap-2 border py-2 drop-shadow bg-white rounded-xl hover:bg-gray-100 transition">
-    <FcGoogle size={22} />
-    Sign in with Google
-  </button>
-  <button className="flex-1 flex items-center justify-center gap-2 border py-2 drop-shadow bg-white rounded-xl hover:bg-gray-100 transition">
-    <FaApple size={20} />
-    Sign in with Apple
-  </button>
-</div>
-
-
-          {/* Terms */}
-          <p className="text-xs text-black mt-6 px-2 sm:px-4">
-            By signing in you agree to our Terms of Use and Privacy Policy
-          </p>
         </div>
       </div>
     </div>

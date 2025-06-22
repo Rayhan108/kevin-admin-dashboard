@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 
 import backgroundImg from '../../assets/bgImg.jpg';
 import logo from '../../assets/YL 2.png';
+import { useNavigate } from 'react-router-dom';
 
 
 const Forgotpass = () => {
@@ -13,16 +14,17 @@ const Forgotpass = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+const navigate = useNavigate();
   const onSubmit = (data) => {
     console.log('Form Data:', data);
+    navigate('/verify')
     // Handle reset code sending logic here
   };
 
   return (
     <div className="relative h-screen w-full">
       {/* Background Image */}
-      <Image
+      <img
         src={backgroundImg}
         alt="Background"
         layout="fill"
@@ -37,7 +39,7 @@ const Forgotpass = () => {
         <div className="bg-white bg-opacity-70 px-8 py-6 sm:px-16 sm:py-10 md:px-24 md:py-12 rounded-md shadow-md max-w-full  text-center">
           {/* Logo and Title */}
           <div className="flex items-center justify-center mb-6 space-x-2">
-            <Image
+            <img
               src={logo}
               alt="Logo"
               width={120}

@@ -9,7 +9,6 @@ import { FaApple } from 'react-icons/fa';
 import {  AiOutlineEyeInvisible } from 'react-icons/ai';
 import { RiEyeCloseLine } from "react-icons/ri";
 
-import Link from 'next/link';
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);

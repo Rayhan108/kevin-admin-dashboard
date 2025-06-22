@@ -8,7 +8,6 @@ import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { RiEyeCloseLine } from "react-icons/ri";
-import Link from "next/link";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 

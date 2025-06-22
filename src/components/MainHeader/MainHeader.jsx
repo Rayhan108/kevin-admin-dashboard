@@ -1,40 +1,31 @@
-
 import { Link, useNavigate } from "react-router-dom";
-import anita from "../../assets/Anita.png"
 import { IoIosNotificationsOutline } from "react-icons/io";
+import { FaRegUser } from "react-icons/fa";
 import { Badge } from "antd";
+import { GiHamburgerMenu } from "react-icons/gi";
 const MainHeader = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative font-title">
-      <header className=" bg-[#3F5EAB] shadow-sm">
-        <div className="flex justify-end items-center px-5 md:px-10 h-[80px]">
-   
+    <div className="relative font-title mr-5 ">
+      <header className=" bg-[#ffffff] shadow-2xl rounded-xl mt-5 border-2">
+        <div className="flex justify-between items-center px-5 md:px-10 h-[80px]">
+          <div>
+            <GiHamburgerMenu className="text-3xl text-black" />
+          </div>
           <div className="flex gap-5 items-center">
             <div>
-        <Link to={"/notification"}> 
-           <Badge count={5}>
-     <IoIosNotificationsOutline className="text-[#35BEBD] bg-white rounded-full w-8 p-1 text-3xl"/>
-    </Badge>
-        </Link>
+              <Link to={"/notification"}>
+                <Badge count={5}>
+                  <IoIosNotificationsOutline className="text-black  bg-white rounded-full border border-black w-8 h-8 p-1 text-4xl" />
+                </Badge>
+              </Link>
             </div>
             <div
               onClick={() => navigate("/setting/updateProfile")}
-              className="flex items-center gap-2 cursor-default  px-5 py-2 rounded-2xl"
+              className="flex items-center gap-2  px-5 py-2 "
             >
-              <img
-                src={anita}
-                className="w-8 md:w-12 h-8 md:h-12 object-cover rounded-full"
-                alt="User Avatar"
-              />
-             <div>
-             <h3 className="hidden md:block text-white text-lg font-semibold">
-             Israa
-              </h3>
-             
-             </div>
-   
+              <FaRegUser className="text-black border border-black bg-white rounded-full w-10 h-10 p-2 text-4xl" />
             </div>
             <button
               onClick={toggleSidebar}

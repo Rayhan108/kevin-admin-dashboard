@@ -1,7 +1,7 @@
-'use client';
+
 
 import { useForm } from 'react-hook-form';
-import Image from 'next/image';
+
 import backgroundImg from '../../assets/bgImg.jpg';
 import logo from '../../assets/YL 2.png';
 

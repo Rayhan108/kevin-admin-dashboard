@@ -95,7 +95,9 @@ const Bookings = () => {
             <Link to="/message">
           <BiMessageDetail className="text-blue-500 cursor-pointer" onClick={() => handleView(record)} />
             </Link>
+              <Link to="/flag">
           <FiFlag className="text-gray-600 cursor-pointer" />
+              </Link>
           <FiTrash2 className="text-red-500 cursor-pointer" onClick={() => handleDelete(record)} />
         </div>
       ),

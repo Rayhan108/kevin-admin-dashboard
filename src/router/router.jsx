@@ -12,6 +12,7 @@ import PasswordReset from "../pages/PasswordReset/PasswordReset";
 import Users from "../pages/Users/Users";
 import Bookings from "../pages/Bookings/Bookings";
 import Message from "../pages/Message/Message";
+import Flag from "../pages/Flag/Flag";
 
 
 const router = createBrowserRouter([
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/message",
         element: <Message/>,
+      },
+      {
+        path: "/flag",
+        element: <Flag/>,
       },
       
     ],

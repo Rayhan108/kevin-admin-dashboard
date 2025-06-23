@@ -9,6 +9,7 @@ import Forgotpass from "../pages/ForgotPass/ForgotPass";
 
 import { createBrowserRouter } from "react-router-dom";
 import PasswordReset from "../pages/PasswordReset/PasswordReset";
+import Users from "../pages/Users/Users";
 
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <DashboardPage/>,
+      },
+      {
+        path: "/userManagement",
+        element: <Users/>,
       },
       
     ],

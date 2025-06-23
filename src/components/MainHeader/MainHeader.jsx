@@ -25,7 +25,7 @@ const MainHeader = ({ toggleSidebar }) => {
               onClick={() => navigate("/setting/updateProfile")}
               className="flex items-center gap-2  px-5 py-2 "
             >
-              <FaRegUser className="text-black border border-black bg-white rounded-full w-10 h-10 p-2 text-4xl" />
+              <FaRegUser className="text-black border border-black bg-white rounded-full w-9 h-9 p-2 text-4xl" />
             </div>
             <button
               onClick={toggleSidebar}

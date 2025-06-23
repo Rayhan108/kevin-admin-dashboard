@@ -1,4 +1,4 @@
-'use client';
+
 import { Input, Pagination, Table, Modal } from 'antd';
 import React, { useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
@@ -176,16 +176,18 @@ const Users = () => {
           pagination={false}
           rowKey="id"
           className="rounded-md shadow-sm"
+          
         />
 
         {/* Pagination */}
-        <div className="mt-4">
+        <div className="mt-4 flex justify-end">
           <Pagination
             current={currentPage}
             pageSize={pageSize}
             total={activeTab === 'client' ? clientData.length : contractorData.length}
             onChange={onChange}
             showSizeChanger={false}
+            
           />
         </div>
       </div>

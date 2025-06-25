@@ -18,6 +18,8 @@ import ManageFees from "../pages/ManageFees/ManageFees";
 import Earnings from "../pages/Earnings/Earnings";
 import ManagePlatformFee from "../pages/ManagePlatformFee/ManagePlatformFee";
 import Categories from "../pages/Categories/Categories";
+import Blogs from "../pages/Blogs/Blogs";
+import CreateBlog from "../pages/CreateBlog/CreateBlog";
 
 
 const router = createBrowserRouter([
@@ -88,6 +90,14 @@ const router = createBrowserRouter([
       {
         path: "/categories",
         element: <Categories/>,
+      },
+      {
+        path: "/blogs",
+        element: <Blogs/>,
+      },
+      {
+        path: "/blogs/createBlogs",
+        element: <CreateBlog/>,
       },
       
     ],

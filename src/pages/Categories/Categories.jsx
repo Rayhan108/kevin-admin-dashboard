@@ -337,7 +337,7 @@ const Categories = () => {
       >
         <div className="text-center px-6 py-6">
           <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            Do you want to Remove this user?
+            Confirm deleting the Category?
           </h2>
 
           <div className="flex justify-center gap-4">

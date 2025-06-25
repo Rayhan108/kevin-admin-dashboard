@@ -20,6 +20,8 @@ import ManagePlatformFee from "../pages/ManagePlatformFee/ManagePlatformFee";
 import Categories from "../pages/Categories/Categories";
 import Blogs from "../pages/Blogs/Blogs";
 import CreateBlog from "../pages/CreateBlog/CreateBlog";
+import Feedback from "../pages/Feedback/Feedback";
+import Reply from "../pages/Feedback/Reply";
 
 
 const router = createBrowserRouter([
@@ -98,6 +100,14 @@ const router = createBrowserRouter([
       {
         path: "/blogs/createBlogs",
         element: <CreateBlog/>,
+      },
+      {
+        path: "/feedback",
+        element: <Feedback/>,
+      },
+      {
+        path: "/feedback/reply",
+        element: <Reply/>,
       },
       
     ],

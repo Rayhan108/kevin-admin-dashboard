@@ -17,6 +17,7 @@ import Membership from "../pages/Membership/Membership";
 import ManageFees from "../pages/ManageFees/ManageFees";
 import Earnings from "../pages/Earnings/Earnings";
 import ManagePlatformFee from "../pages/ManagePlatformFee/ManagePlatformFee";
+import Categories from "../pages/Categories/Categories";
 
 
 const router = createBrowserRouter([
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "/earnings/platformFee",
         element: <ManagePlatformFee/>,
+      },
+      {
+        path: "/categories",
+        element: <Categories/>,
       },
       
     ],

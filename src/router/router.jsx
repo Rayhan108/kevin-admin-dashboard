@@ -4,7 +4,7 @@ import Main from "../layout/Main";
 
 import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import Verify from "../pages/Verify/Verify";
-import Signin from "../pages/SignIn/Signin";
+
 import Forgotpass from "../pages/ForgotPass/ForgotPass";
 
 import { createBrowserRouter } from "react-router-dom";
@@ -27,7 +27,7 @@ import Privacy from "../pages/Privacy/Privacy";
 import Terms from "../pages/Terms/Terms";
 import NotificationDetails from "../pages/Notification/NotificationDetails";
 import Notification from "../pages/Notification/Notification";
-
+import Signin from "../pages/Signin/Signin"
 
 const router = createBrowserRouter([
   {

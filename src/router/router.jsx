@@ -15,6 +15,8 @@ import Message from "../pages/Message/Message";
 import Flag from "../pages/Flag/Flag";
 import Membership from "../pages/Membership/Membership";
 import ManageFees from "../pages/ManageFees/ManageFees";
+import Earnings from "../pages/Earnings/Earnings";
+import ManagePlatformFee from "../pages/ManagePlatformFee/ManagePlatformFee";
 
 
 const router = createBrowserRouter([
@@ -73,6 +75,14 @@ const router = createBrowserRouter([
       {
         path: "/booking/flag",
         element: <Flag/>,
+      },
+      {
+        path: "/earnings",
+        element: <Earnings/>,
+      },
+      {
+        path: "/earnings/platformFee",
+        element: <ManagePlatformFee/>,
       },
       
     ],

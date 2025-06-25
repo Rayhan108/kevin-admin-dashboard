@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Input, Pagination, Table, Modal, Tag } from 'antd';
+import { Pagination, Table, Modal, Tag } from 'antd';
 import { FiTrash2, FiFlag } from 'react-icons/fi';
 import { LuDownload } from 'react-icons/lu';
 import userImg from '../../assets/Ellipse 1.png';
@@ -10,7 +10,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 
 const Membership = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+ 
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [activeTab, setActiveTab] = useState('project');
@@ -136,7 +136,7 @@ const handleDownload = (record) => {
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+
     setIsDeleteModalVisible(false);
   };
 
@@ -192,13 +192,6 @@ const handleDownload = (record) => {
         </div>
       </div>
 
-      <Modal visible={isModalVisible} onCancel={handleCancel} footer={null} centered>
-        <div className="text-center">
-          <img src={userImg} alt="User" className="w-16 h-16 mx-auto rounded-full" />
-          <h3 className="mt-4 text-lg font-bold">{currentUser?.fullName}</h3>
-          <p className="text-sm">Email: {currentUser?.email}</p>
-        </div>
-      </Modal>
 
       {/* Delete Confirmation Modal */}
       <Modal

@@ -77,16 +77,17 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       label: "Profile",
       icon: <IoMdInformationCircleOutline className="w-5 h-5 text-lg" />,
     },
-    {
-      path: "/setting/terms",
-      label: "Terms and Condition",
-      icon: <FaRegBookmark className="w-5 h-5 text-lg" />,
-    },
-    {
+     {
       path: "/setting/privacy",
       label: "Privacy Policy",
       icon: <MdOutlinePrivacyTip className="w-5 h-5 text-lg" />,
     },
+    {
+      path: "/setting/terms",
+      label: "Terms and Condition",
+      icon: <FaRegBookmark className="w-5 h-5 text-lg" />,
+    }
+   
   ];
 
   const isActive = (path) => currentPath === path;
@@ -136,7 +137,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           <button
             onClick={toggleSettingsDropdown}
             className={`flex w-full justify-between items-center gap-2 mt-1 cursor-pointer transition-all duration-300 ease-in-out ${
-              isSettingsActive ? "bg-[#F3F3F3] text-black px-3 pb-2 rounded-2xl" : ""
+              isSettingsActive ? "bg-[#1D69E1] text-white px-3 pb-2 rounded-2xl" : ""
             } relative`}
           >
             {isSettingsActive && (
@@ -148,7 +149,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <li className="flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out w-[98%]">
               <IoMdSettings className="w-5 h-5 " />
               <p className="text-lg">Settings</p>
-              <SlArrowDown className={`w-5 h-5 text-right ml-5 hover:-rotate-90 ${isSettingsActive ? "bg-[#F3F3F3] text-black" : "text-black"}`} />
+              <SlArrowDown className={`w-5 h-5 text-right ml-5 hover:-rotate-90 ${isSettingsActive ? " text-white" : "text-black"}`} />
             </li>
           </button>
         </div>
@@ -160,7 +161,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <Link to={path} key={path}>
                 <li
                   className={`flex items-center gap-2 transition-all duration-300 ease-in-out mb-5 mt-5 ${
-                    isActive(path) ? "pl-3 pr-5 py-[14px] rounded-2xl bg-[#F3F3F3] text-black" : ""
+                    isActive(path) ? "pl-3 pr-5 py-[14px] rounded-2xl bg-[#164FA9] text-white " : "text-black"
                   }`}
                 >
                   {icon}

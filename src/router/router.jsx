@@ -22,6 +22,7 @@ import Blogs from "../pages/Blogs/Blogs";
 import CreateBlog from "../pages/CreateBlog/CreateBlog";
 import Feedback from "../pages/Feedback/Feedback";
 import Reply from "../pages/Feedback/Reply";
+import Profile from "../pages/Profile/Profile";
 
 
 const router = createBrowserRouter([
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       {
         path: "/feedback/reply",
         element: <Reply/>,
+      },
+      {
+        path: "/setting/updateProfile",
+        element: <Profile/>,
       },
       
     ],

@@ -183,9 +183,9 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           </Link>
         ) : (
           <Link to="">
-            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
-              <RiLogoutCircleLine className="w-7 h-7 font-bold text-2xl text-white rotate-90" />
-              <span className="text-lg text-title font-bold">Logout</span>
+            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border border-red-600  rounded-xl duration-200 justify-center">
+              <RiLogoutCircleLine className="w-7 h-7 font-bold text-2xl text-red-600 rotate-90" />
+              <span className="text-lg text-title font-bold text-red-600">Logout</span>
             </button>
           </Link>
         )}

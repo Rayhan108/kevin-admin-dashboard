@@ -6,6 +6,7 @@ import { FiTrash2, FiFlag } from 'react-icons/fi';
 import { BiMessageDetail } from 'react-icons/bi';
 import userImg from '../../assets/Ellipse 1.png';
 import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const Bookings = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -92,7 +93,7 @@ const Bookings = () => {
       key: 'action',
       render: (_, record) => (
         <div className="flex gap-3 justify-center text-lg">
-            <Link to="/message">
+            <Link to="/booking/message">
           <BiMessageDetail className="text-blue-500 cursor-pointer" onClick={() => handleView(record)} />
             </Link>
               <Link to="/flag">
@@ -128,7 +129,9 @@ const Bookings = () => {
       key: 'action',
       render: (_, record) => (
         <div className="flex gap-3 justify-center text-lg">
+                   <Link to="/booking/flag">
           <FiFlag className="text-gray-600 cursor-pointer" />
+              </Link>
           <FiTrash2 className="text-red-500 cursor-pointer" onClick={() => handleDelete(record)} />
         </div>
       ),
@@ -160,6 +163,7 @@ const Bookings = () => {
     <div className="border-2 mt-2 rounded">
       <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
         <div className="flex justify-center items-center gap-5">
+                <FaArrowLeft />
           <p className="text-[#ffffff] font-title text-3xl font-bold">
             Bookings
           </p>
@@ -225,16 +229,38 @@ const Bookings = () => {
         </div>
       </Modal>
 
-      <Modal visible={isDeleteModalVisible} onCancel={handleCancel} footer={null} centered>
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-4">Do you want to remove this user?</h2>
+
+      {/* Delete Confirmation Modal */}
+      <Modal
+        visible={isDeleteModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+        centered
+        closable={false}
+      >
+        <div className="text-center px-6 py-6">
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">
+            Do you want to Remove this user?
+          </h2>
+
           <div className="flex justify-center gap-4">
-            <button onClick={handleCancel} className="px-4 py-2 border rounded">Cancel</button>
-            <button onClick={handleDeleteConfirm} className="px-4 py-2 bg-red-600 text-white rounded">Yes, Confirm</button>
+            <button
+              onClick={handleCancel}
+              className="border border-gray-400 px-5 py-2 rounded-md text-gray-700 hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleDeleteConfirm}
+              className="bg-red-500 text-white px-5 py-2 rounded-md hover:bg-red-600"
+            >
+              Yes, Confirm
+            </button>
           </div>
         </div>
       </Modal>
     </div>
+
   );
 };
 

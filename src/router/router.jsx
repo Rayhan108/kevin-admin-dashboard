@@ -13,6 +13,8 @@ import Users from "../pages/Users/Users";
 import Bookings from "../pages/Bookings/Bookings";
 import Message from "../pages/Message/Message";
 import Flag from "../pages/Flag/Flag";
+import Membership from "../pages/Membership/Membership";
+import ManageFees from "../pages/ManageFees/ManageFees";
 
 
 const router = createBrowserRouter([
@@ -57,11 +59,19 @@ const router = createBrowserRouter([
         element: <Bookings/>,
       },
       {
-        path: "/message",
+        path: "/booking/message",
         element: <Message/>,
       },
       {
-        path: "/flag",
+        path: "/membership",
+        element: <Membership/>,
+      },
+      {
+        path: "/membership/manageFees",
+        element: <ManageFees/>,
+      },
+      {
+        path: "/booking/flag",
         element: <Flag/>,
       },
       

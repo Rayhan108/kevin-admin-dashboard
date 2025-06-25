@@ -23,6 +23,8 @@ import CreateBlog from "../pages/CreateBlog/CreateBlog";
 import Feedback from "../pages/Feedback/Feedback";
 import Reply from "../pages/Feedback/Reply";
 import Profile from "../pages/Profile/Profile";
+import Privacy from "../pages/Privacy/Privacy";
+import Terms from "../pages/Terms/Terms";
 
 
 const router = createBrowserRouter([
@@ -113,6 +115,14 @@ const router = createBrowserRouter([
       {
         path: "/setting/updateProfile",
         element: <Profile/>,
+      },
+      {
+        path: "/setting/privacy",
+        element: <Privacy/>,
+      },
+      {
+        path: "/setting/terms",
+        element: <Terms/>,
       },
       
     ],

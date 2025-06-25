@@ -84,7 +84,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     },
     {
       path: "/setting/terms",
-      label: "Terms and Condition",
+      label: "Terms and Condition", 
       icon: <FaRegBookmark className="w-5 h-5 text-lg" />,
     }
    

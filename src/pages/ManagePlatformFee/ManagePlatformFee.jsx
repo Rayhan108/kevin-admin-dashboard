@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const FeeSection = ({ label, defaultValue }) => {
   const [value, setValue] = useState(defaultValue);
@@ -53,7 +54,9 @@ const ManagePlatformFee = () => {
               <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
               <div className="flex justify-center items-center gap-5">
                 <p className="text-[#ffffff] font-title text-3xl font-bold flex items-center gap-3">
-                  <FaArrowLeft />
+               <Link to="/earnings">
+            <FaArrowLeft />
+            </Link>
                  Manage Platform Fee
                 </p>
               </div>

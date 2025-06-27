@@ -1,13 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { FaCarAlt, FaHome, FaRegBookmark, FaRegUser, FaUsers } from "react-icons/fa";
+import {  FaRegBookmark,FaUsers } from "react-icons/fa";
 import { IoMdInformationCircleOutline, IoMdSettings } from "react-icons/io";
-import { IoArrowRedoCircleSharp, IoCloseSharp } from "react-icons/io5";
-import { MdCategory, MdOutlineEditRoad, MdOutlinePayment, MdOutlinePrivacyTip } from "react-icons/md";
-import { GoDeviceCameraVideo } from "react-icons/go";
+import { IoCloseSharp } from "react-icons/io5";
+import { MdCategory,MdOutlinePrivacyTip } from "react-icons/md";
+
 import { SlArrowDown, SlBadge } from "react-icons/sl";
-import { RiFeedbackLine, RiLogoutCircleLine } from "react-icons/ri";
-import { SiSimpleanalytics } from "react-icons/si";
-import { CgMail } from "react-icons/cg";
+import { RiLogoutCircleLine } from "react-icons/ri";
+
+
 import { useState } from "react";
 import logo from "../../assets/navLogo.png";
 import { RxDashboard } from "react-icons/rx";
@@ -89,8 +89,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
     }
    
   ];
-
-  const isActive = (path) => currentPath === path;
+const isActive = (path) => {
+  if (path === '/') {
+    return currentPath === path;  // Exact match for '/'
+  }
+  return currentPath.startsWith(path);  // Partial match for other routes
+};
   const isSettingsActive = currentPath.startsWith("/setting");
   const toggleSettingsDropdown = () => {
     setIsSettingsOpen(!isSettingsOpen);

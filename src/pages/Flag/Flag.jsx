@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FaArrowLeft } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Flag = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -14,9 +15,12 @@ const Flag = () => {
       <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
         <div className="flex justify-center items-center gap-5">
           <p className="text-[#ffffff] font-title text-3xl font-bold flex items-center gap-3">
+         <Link to="/booking">
             <FaArrowLeft />
+            </Link>
             Flag User
           </p>
+        
         </div>
       </div>
 

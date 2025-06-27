@@ -9,6 +9,7 @@ import socketImg from '../../assets/choket.png';
 import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const Message = () => {
   const [message, setMessage] = useState("");
@@ -73,7 +74,9 @@ const Message = () => {
     <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
         <div className="flex justify-center items-center gap-5">
           <p className="text-[#ffffff] font-title text-3xl font-bold flex items-center gap-3">
+            <Link to="/booking">
             <FaArrowLeft />
+            </Link>
            Inspect Message
           </p>
         </div>

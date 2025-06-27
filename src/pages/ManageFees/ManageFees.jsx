@@ -1,6 +1,7 @@
 import { FaArrowLeft } from "react-icons/fa";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FeeSection = ({ label, defaultValue }) => {
   const [value, setValue] = useState(defaultValue);
@@ -52,7 +53,9 @@ const ManageFees = () => {
         <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
         <div className="flex justify-center items-center gap-5">
           <p className="text-[#ffffff] font-title text-3xl font-bold flex items-center gap-3">
+        <Link to="/membership">
             <FaArrowLeft />
+            </Link>
            Membership Fees
           </p>
         </div>

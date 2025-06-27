@@ -51,16 +51,16 @@ const CreateBlog = () => {
       </div>
 
       <div>
-        <label htmlFor="category" className="block text-gray-700 font-medium">Category</label>
+        <label htmlFor="category" className="block text-black  font-medium">Category</label>
         <select
           id="category"
-          className="mt-2 p-3 w-full border border-gray-300 rounded-lg"
+          className="mt-2 p-3 w-full border text-black border-gray-300 rounded-lg"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
-          <option value="News">News</option>
-          <option value="Technology">Technology</option>
-          <option value="Lifestyle">Lifestyle</option>
+          <option   value="News">News</option>
+          <option   value="Technology">Technology</option>
+          <option   value="Lifestyle">Lifestyle</option>
         </select>
       </div>
 

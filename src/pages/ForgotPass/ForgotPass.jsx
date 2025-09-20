@@ -5,19 +5,44 @@ import { useForm } from 'react-hook-form';
 import backgroundImg from '../../assets/bgImg.jpg';
 import logo from '../../assets/YL 2.png';
 import { useNavigate } from 'react-router-dom';
+import { useSendOtpMutation } from '../../redux/feature/auth/authApi';
+import { message } from 'antd';
+import { useDispatch } from 'react-redux';
+import { setEmail } from '../../redux/feature/auth/authSlice';
 
 
 const Forgotpass = () => {
-
+const [sendOtp] =useSendOtpMutation()
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 const navigate = useNavigate();
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log('Form Data:', data);
-    navigate('/verify')
+    const email = data?.email
+   dispatch(setEmail({email: email}))
+       try {
+      const res = await sendOtp(data).unwrap()
+
+      console.log("response------->",res);
+ 
+      if(res?.success){
+        message.success(res?.message)
+ 
+        navigate('/verify')
+      }else{
+        message.error(res?.message)
+   
+      }
+    } catch (error) {
+      console.log("login error",error)
+         message.error(error?.data?.message)
+        
+    }
+
     // Handle reset code sending logic here
   };
 

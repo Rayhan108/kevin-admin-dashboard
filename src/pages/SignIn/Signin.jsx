@@ -8,21 +8,45 @@ import logo from '../../assets/YL 2.png';
 import {  AiOutlineEyeInvisible } from 'react-icons/ai';
 import { RiEyeCloseLine } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '../../redux/feature/auth/authApi';
+import { verifyToken } from '../../utils/VerifyToken';
+import { message } from 'antd';
+import { setUser } from '../../redux/feature/auth/authSlice';
 
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const dispatch = useDispatch()
+const [login]=useLoginMutation()
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 const navigate = useNavigate();
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     console.log('Form Data:', data);
     // Handle sign-in logic here
-    navigate('/forget-password')
+       try {
+      const res = await login(data).unwrap()
+      const user = verifyToken(res.data.accessToken);
+      console.log("response------->",res);
+      if(res?.success){
+        message.success(res?.message)
+  
+        dispatch(setUser({user: user, token: res.data.accessToken }))
+        navigate('/')
+      }else{
+        message.error(res?.message)
+
+      }
+    } catch (error) {
+      console.log("login error",error)
+         message.error(error?.data?.message)
+
+    }
+
   };
 
   return (
@@ -95,7 +119,7 @@ const navigate = useNavigate();
                 <input type="checkbox" {...register('remember')} className="w-4 h-4" />
                 <span>Remember password</span>
               </label>
-              <Link href="/forgotPass" className="text-blue-600 hover:underline">Forgot password?</Link>
+              <Link to="/forget-password" className="text-blue-600 hover:underline">Forgot password?</Link>
             </div>
 
             {/* Submit Button */}

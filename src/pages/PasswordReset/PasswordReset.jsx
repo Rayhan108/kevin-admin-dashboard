@@ -7,29 +7,46 @@ import backgroundImg from '../../assets/bgImg.jpg';
 import logo from '../../assets/YL 2.png';
 import { useNavigate } from "react-router-dom"
 
+import { message } from "antd"
+import { useResetPassMutation } from "../../redux/feature/auth/authApi"
+import { useDispatch } from "react-redux"
+import { useAppSelector } from "../../redux/hooks"
+import { clearEmail, selectCurrentEmail } from "../../redux/feature/auth/authSlice"
+
 const PasswordReset = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false)
   const [showNewPassword, setShowNewPassword] = useState(false)
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const dispatch = useDispatch();
+  const email = useAppSelector(selectCurrentEmail);
 
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors, isSubmitting },
   } = useForm()
 
-  const newPassword = watch("newPassword")
+    const [resetPassword] = useResetPassMutation();
 const navigate = useNavigate();
   const onSubmit = async (data) => {
+    const payload = {
+      ...data,email
+    }
     try {
-      console.log("Form data:", data)
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      alert("Password updated successfully!")
-      navigate('/')
+   
+      const res = await resetPassword(payload).unwrap();
+      console.log("reset pass response--->", res);
+      if (res?.success) {
+        message.success(res?.message);
+dispatch(clearEmail())
+        navigate("/sign-in");
+      } else {
+        message.error(res?.message);
+
+      }
     } catch (error) {
-      console.error("Error updating password:", error)
+      message.error(error?.data?.message);
+
     }
   }
 
@@ -41,9 +58,7 @@ const navigate = useNavigate();
       case "new":
         setShowNewPassword(!showNewPassword)
         break
-      case "confirm":
-        setShowConfirmPassword(!showConfirmPassword)
-        break
+
       default:
         break
     }
@@ -83,7 +98,7 @@ const navigate = useNavigate();
               <input
                 id="currentPassword"
                 type={showCurrentPassword ? "text" : "password"}
-                {...register("currentPassword", {
+                {...register("oldPassword", {
                   required: "Current password is required",
                   minLength: {
                     value: 6,
@@ -105,7 +120,7 @@ const navigate = useNavigate();
                 )}
               </button>
             </div>
-            {errors.currentPassword && <p className="mt-1 text-sm text-red-600">{errors.currentPassword.message}</p>}
+            {errors.oldPassword && <p className="mt-1 text-sm text-red-600">{errors.oldPassword.message}</p>}
           </div>
 
           {/* New Password */}
@@ -123,11 +138,7 @@ const navigate = useNavigate();
                     value: 8,
                     message: "Password must be at least 8 characters",
                   },
-                  pattern: {
-                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
-                    message:
-                      "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-                  },
+            
                 })}
                 className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="*********"
@@ -147,36 +158,7 @@ const navigate = useNavigate();
             {errors.newPassword && <p className="mt-1 text-sm text-red-600">{errors.newPassword.message}</p>}
           </div>
 
-          {/* Confirm New Password */}
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-              Confirm New Password
-            </label>
-            <div className="relative">
-              <input
-                id="confirmPassword"
-                type={showConfirmPassword ? "text" : "password"}
-                {...register("confirmPassword", {
-                  required: "Please confirm your password",
-                  validate: (value) => value === newPassword || "Passwords do not match",
-                })}
-                className="appearance-none relative block w-full px-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="*********"
-              />
-              <button
-                type="button"
-                className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                onClick={() => togglePasswordVisibility("confirm")}
-              >
-                {showConfirmPassword ? (
-                  <LuEyeOff  className="h-5 w-5 text-gray-400" />
-                ) : (
-                  <MdOutlineRemoveRedEye  className="h-5 w-5 text-gray-400" />
-                )}
-              </button>
-            </div>
-            {errors.confirmPassword && <p className="mt-1 text-sm text-red-600">{errors.confirmPassword.message}</p>}
-          </div>
+    
 
           {/* Submit Button */}
           <div>

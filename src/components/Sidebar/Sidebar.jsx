@@ -15,13 +15,20 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { GiProgression } from "react-icons/gi";
 import { TbLogs } from "react-icons/tb";
 import { VscFeedback } from "react-icons/vsc";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
+import { logout, selectCurrentUser } from "../../redux/feature/auth/authSlice";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [user,setUser]=useState(true);
-
+  // const [user,setUser]=useState(true);
+  const dispatch = useDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  const handleLogout=()=>{
+    dispatch(logout())
+  }
   const routes = [
     {
       path: "/",
@@ -180,16 +187,17 @@ const isActive = (path) => {
       {/* Logout Button */}
       <div className="absolute bottom-5 w-[90%] px-5">
         {user ? (
-          <Link to="/sign-in">
-            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
-              <span className="text-lg text-title font-bold">Login</span>
-            </button>
-          </Link>
-        ) : (
-          <Link to="">
-            <button onClick={()=>setUser(!user)} className="flex items-center gap-2 w-full px-0 py-3 border border-red-600  rounded-xl duration-200 justify-center">
+                    <Link to="">
+            <button onClick={()=>handleLogout()} className="flex items-center gap-2 w-full px-0 py-3 border border-red-600  rounded-xl duration-200 justify-center">
               <RiLogoutCircleLine className="w-7 h-7 font-bold text-2xl text-red-600 rotate-90" />
               <span className="text-lg text-title font-bold text-red-600">Logout</span>
+            </button>
+          </Link>
+     
+        ) : (
+     <Link to="/sign-in">
+            <button  className="flex items-center gap-2 w-full px-0 py-3 border-2 border-black text-black rounded-xl duration-200 justify-center">
+              <span className="text-lg text-title font-bold">Login</span>
             </button>
           </Link>
         )}

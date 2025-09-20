@@ -28,6 +28,7 @@ import Terms from "../pages/Terms/Terms";
 import NotificationDetails from "../pages/Notification/NotificationDetails";
 import Notification from "../pages/Notification/Notification";
 import Signin from "../pages/Signin/Signin"
+import PrivetRoutes from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -51,7 +52,8 @@ const router = createBrowserRouter([
 
   {
     path: "/",
-    element: <Main></Main>,
+
+        element: <PrivetRoutes><Main></Main></PrivetRoutes>,
     // errorElement: <ErrorPage></ErrorPage>,
     children: [
       {

@@ -14,17 +14,10 @@ const docApi = baseApi.injectEndpoints({
         url: `/verify/updateStatus`,
         method: "PATCH",
         // params: { page, role,search },
-        body:payload
+        body: payload,
       }),
     }),
-
-
-
-
-
-
-
   }),
 });
 
-export const {useGetAllDocQuery,useUpdateDocStatusMutation} = docApi;
+export const { useGetAllDocQuery, useUpdateDocStatusMutation } = docApi;

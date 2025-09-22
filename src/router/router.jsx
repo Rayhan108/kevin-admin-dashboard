@@ -29,6 +29,7 @@ import NotificationDetails from "../pages/Notification/NotificationDetails";
 import Notification from "../pages/Notification/Notification";
 import Signin from "../pages/Signin/Signin"
 import PrivetRoutes from "./PrivetRoute";
+import DocVerify from "../pages/DocVerify/DocVerify";
 
 const router = createBrowserRouter([
   {
@@ -86,9 +87,13 @@ const router = createBrowserRouter([
         element: <Flag/>,
       },
       {
-        path: "/earnings",
-        element: <Earnings/>,
+        path: "/docVerify",
+        element: <DocVerify/>,
       },
+      // {
+      //   path: "/earnings",
+      //   element: <Earnings/>,
+      // },
       {
         path: "/earnings/platformFee",
         element: <ManagePlatformFee/>,

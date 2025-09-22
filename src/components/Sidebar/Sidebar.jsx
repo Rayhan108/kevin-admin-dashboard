@@ -51,10 +51,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       icon: <SlBadge  className="w-5 h-5" />,
     },
     {
-      path: "/earnings",
-      label: "Earnings",
+      path: "/docVerify",
+      label: "Doc Verification",
       icon: <GiProgression  className="w-5 h-5" />,
     },
+    // {
+    //   path: "/earnings",
+    //   label: "Earnings",
+    //   icon: <GiProgression  className="w-5 h-5" />,
+    // },
     {
       path: "/categories",
       label: "Categories",

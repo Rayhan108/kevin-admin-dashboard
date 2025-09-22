@@ -62,7 +62,7 @@ const Categories = () => {
     };
     try {
       const res = await editCat({
-        payload:formattedData,
+        payload: formattedData,
         id: currentData?._id,
       }).unwrap();
 
@@ -70,7 +70,7 @@ const Categories = () => {
       if (res?.success) {
         message.success(res?.message);
         refetch();
-        handleCancel()
+        handleCancel();
       } else {
         message.error(res?.message);
       }
@@ -91,18 +91,18 @@ const Categories = () => {
     setIsDeleteModalVisible(true);
   };
 
-  const handleDeleteConfirm =async () => {
-    const id = currentUser?._id
+  const handleDeleteConfirm = async () => {
+    const id = currentUser?._id;
     console.log("Deleted user:", currentUser);
-    
-       try {
+
+    try {
       const res = await deleteCat(id).unwrap();
 
       console.log("response------->", res);
       if (res?.success) {
         message.success(res?.message);
         refetch();
-        handleCancel()
+        handleCancel();
       } else {
         message.error(res?.message);
       }

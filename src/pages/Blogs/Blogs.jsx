@@ -1,174 +1,140 @@
-import React, { useState } from 'react';
-import { Modal, Table } from 'antd';
-import { FaRegEdit } from 'react-icons/fa';
-import { FiTrash2 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { message, Modal, Pagination, Table } from "antd";
+import { FaRegEdit } from "react-icons/fa";
+import { FiTrash2 } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import {
+  useAllBlogsQuery,
+  useDeleteBlogMutation,
+  useUpdateBlogStatusMutation,
+} from "../../redux/feature/others/othersApi";
 
 const Blogs = () => {
-      const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
-  const [data, setData] = useState([
-    {
-      key: '1',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '2',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '3',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Published',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '4',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Rejected',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '1',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '2',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '3',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Published',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '4',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Rejected',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '1',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '2',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Publish',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '3',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Published',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-    {
-      key: '4',
-      blog: '5 reasons to choose roomy for your next renting!',
-      email: 'abc@gmail.com',
-      visibility: 'Rejected',
-      time: '02-24-2024',
-      action: 'Edit',
-    },
-  ]);
-  const handleDelete = (user) => {
-console.log(user);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [currentBlog, setCurrentBlog] = useState(null);
+  const [updateBlog] = useUpdateBlogStatusMutation();
+  const [deleteBlog] = useDeleteBlogMutation();
+  const [page, setPage] = useState(1);
+  const { data: allArticles, refetch } = useAllBlogsQuery(page);
+  const meta = allArticles?.data?.meta;
+  console.log("all article---->", allArticles);
+
+  // Ensure meta and limit are defined
+  const limit = meta?.limit || 10;
+  const totalItems = meta?.total || 0;
+
+  // Check if there are enough items to slice
+  const currentItems = allArticles?.data?.result;
+
+  console.log("items-------->", currentItems);
+  const onPageChange = (page) => {
+    setPage(page);
+  };
+
+  const handleDelete = (blog) => {
+    console.log(blog);
+    setCurrentBlog(blog);
     setIsDeleteModalVisible(true);
   };
-  const handleVisibilityChange = (key, visibility) => {
-    setData((prevData) =>
-      prevData.map((item) =>
-        item.key === key ? { ...item, visibility } : item
-      )
-    );
+  const handleAccept = async (data) => {
+    console.log("Accepted:", data);
+    const payload = {
+      id: data?._id,
+      status: "approved",
+    };
+    try {
+      const res = await updateBlog(payload).unwrap();
+
+      console.log("response------->", res);
+      if (res?.success) {
+        message.success(res?.message);
+        refetch();
+      } else {
+        message.error(res?.message);
+      }
+    } catch (error) {
+      console.log("login error", error);
+      message.error(error?.data?.message);
+    }
+  };
+
+  const handleReject = async (data) => {
+    console.log("Rejected:", data);
+    const payload = {
+      id: data?._id,
+      status: "rejected",
+    };
+    try {
+      const res = await updateBlog(payload).unwrap();
+
+      console.log("response------->", res);
+      if (res?.success) {
+        message.success(res?.message);
+        refetch();
+      } else {
+        message.error(res?.message);
+      }
+    } catch (error) {
+      console.log("login error", error);
+      message.error(error?.data?.message);
+    }
   };
 
   const columns = [
     {
-      title: 'S.ID',
-      dataIndex: 'key',
-      key: 'key',
+      title: "S.ID",
+      dataIndex: "id",
+      key: "id",
+      render: (text, record, index) => {
+        return index + 1;
+      },
     },
     {
-      title: 'Blog',
-      dataIndex: 'blog',
-      key: 'blog',
+      title: "Blog",
+      dataIndex: "content",
+      key: "content",
     },
     {
-      title: 'Email',
-      dataIndex: 'email',
-      key: 'email',
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+      render: (_text, record) => <p>{record.user?.email}</p>,
     },
     {
-      title: 'Visibility',
-      dataIndex: 'visibility',
-      key: 'visibility',
-      render: (visibility, record) => (
+      title: "Status",
+      dataIndex: "blogStatus",
+      key: "blogStatus",
+      render: (blogStatus, record) => (
         <div>
-          {visibility === 'Published' ? (
+          {blogStatus === "approved" ? (
             <span
               style={{
-                color: 'green',
-                fontWeight: 'bold',
+                color: "green",
+                fontWeight: "bold",
               }}
             >
               Published
             </span>
-          ) : visibility === 'Rejected' ? (
+          ) : blogStatus === "rejected" ? (
             <span
               style={{
-                color: 'red',
-                fontWeight: 'bold',
+                color: "red",
+                fontWeight: "bold",
               }}
             >
               Rejected
             </span>
           ) : (
-            <div className='flex gap-3'>
+            <div className="flex gap-3">
               <button
                 className=" border border-[#1D69E1] text-[#1D69E1] px-5  "
-              
-                onClick={() => handleVisibilityChange(record.key, 'Published')}
+                onClick={() => handleAccept(record)}
               >
                 Publish
               </button>
               <button
                 className="border border-[#F44848] text-[#F44848] px-5 "
-           
-                onClick={() => handleVisibilityChange(record.key, 'Rejected')}
+                onClick={() => handleReject(record)}
               >
                 Reject
               </button>
@@ -178,39 +144,54 @@ console.log(user);
       ),
     },
     {
-      title: 'Time',
-      dataIndex: 'time',
-      key: 'time',
+      title: "Time",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (value) => value.split("T")[0],
     },
     {
-              title: "Action",
-              key: "action",
-              render: (_, record) => (
-                <div className="flex gap-3 justify-center text-lg">
-                  {/* <FaRegEdit
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <div className="flex gap-3 justify-center text-lg">
+          {/* <FaRegEdit
                     className="text-gray-600 cursor-pointer"
                   
                   /> */}
-                  <FiTrash2
-                    className="text-red-500 cursor-pointer"
-                    onClick={() => handleDelete(record)}
-                  />
-                </div>
-              ),
-              align: "center",
-            },
+          <FiTrash2
+            className="text-red-500 cursor-pointer"
+            onClick={() => handleDelete(record)}
+          />
+        </div>
+      ),
+      align: "center",
+    },
   ];
 
-  const handleDeleteConfirm = () => {
+  const handleDeleteConfirm = async () => {
+    try {
+      const res = await deleteBlog(currentBlog?._id).unwrap();
 
-    setIsDeleteModalVisible(false);
+      console.log("response------->", res);
+      if (res?.success) {
+        message.success(res?.message);
+        refetch();
+        setIsDeleteModalVisible(false);
+      } else {
+        message.error(res?.message);
+        setIsDeleteModalVisible(false);
+      }
+    } catch (error) {
+      console.log("login error", error);
+      message.error(error?.data?.message);
+      setIsDeleteModalVisible(false);
+    }
   };
 
   const handleCancel = () => {
-
     setIsDeleteModalVisible(false);
-
   };
+
   return (
     <div>
       <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
@@ -220,28 +201,32 @@ console.log(user);
         <div className="flex gap-5">
           <div className="relative w-full">
             <Link to="/blogs/createBlogs">
-            
-            <button className="bg-white text-black px-3 py-1 rounded-md">
-              + Create Blog
-            </button>
+              <button className="bg-white text-black px-3 py-1 rounded-md">
+                + Create Blog
+              </button>
             </Link>
           </div>
         </div>
       </div>
 
-<div className='mt-8'>
-          <Table
-        dataSource={data}
-        columns={columns}
-        pagination={{
-          pageSize: 10,
-          total: data.length,
-      
-       
-        }}
+      <div className="mt-8">
+        <Table dataSource={currentItems} columns={columns}    pagination={false}/>
+      </div>
+
+     <div className="my-5">
+       <Pagination
+        current={page}
+        pageSize={limit}
+        total={totalItems}
+        onChange={onPageChange}
+        showSizeChanger={false}
+        className="flex justify-center"
+        // Show the total number of pages (meta.totalPage)
+        pageSizeOptions={[limit.toString()]}
       />
-</div>
-    {/* Delete Confirmation Modal */}
+     </div>
+
+      {/* Delete Confirmation Modal */}
       <Modal
         visible={isDeleteModalVisible}
         onCancel={handleCancel}

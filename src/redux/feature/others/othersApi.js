@@ -6,7 +6,7 @@ const othersApi = baseApi.injectEndpoints({
       query: (page) => ({
         url: `/category/all-category`,
         method: "GET",
-        params: { page},
+        params: { page },
       }),
     }),
     createCat: builder.mutation({
@@ -18,10 +18,18 @@ const othersApi = baseApi.injectEndpoints({
       }),
     }),
     editCat: builder.mutation({
-      query: ({payload,id}) => ({
+      query: ({ payload, id }) => ({
         url: `/category/edit-category/${id}`,
         method: "PATCH",
 
+        body: payload,
+      }),
+    }),
+    updateBlogStatus: builder.mutation({
+        query: (payload) => ({
+        url: `/article/update-status`,
+        method: "PATCH",
+        // params: { page, role,search },
         body: payload,
       }),
     }),
@@ -29,10 +37,39 @@ const othersApi = baseApi.injectEndpoints({
       query: (id) => ({
         url: `/category/delete-category/${id}`,
         method: "DELETE",
-
+      }),
+    }),
+    deleteBlog: builder.mutation({
+      query: (id) => ({
+        url: `/article/delete-article/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    createBlogs: builder.mutation({
+      query: (payload) => ({
+        url: `/article/create-article`,
+        method: "POST",
+        body:payload,
+      }),
+    }),
+    allBlogs: builder.query({
+      query: (page) => ({
+        url: `/article/allArticle`,
+        method: "GET",
+        params:{page}
+    
       }),
     }),
   }),
 });
 
-export const { useGetAllCateQuery, useCreateCatMutation,useDeleteCatMutation,useEditCatMutation} = othersApi;
+export const {
+  useGetAllCateQuery,
+  useCreateCatMutation,
+  useDeleteCatMutation,
+  useEditCatMutation,
+  useCreateBlogsMutation,
+  useAllBlogsQuery,
+  useUpdateBlogStatusMutation,
+  useDeleteBlogMutation
+} = othersApi;

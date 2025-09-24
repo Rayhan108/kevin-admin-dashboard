@@ -40,11 +40,11 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
       label: "User",
       icon: <FaUsers  className="w-5 h-5" />,
     },
-    {
-      path: "/booking",
-      label: "Booking",
-      icon: <FaCalendarDays  className="w-5 h-5" />,
-    },
+    // {
+    //   path: "/booking",
+    //   label: "Booking",
+    //   icon: <FaCalendarDays  className="w-5 h-5" />,
+    // },
     {
       path: "/membership",
       label: "Membership",

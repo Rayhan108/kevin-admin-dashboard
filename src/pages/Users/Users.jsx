@@ -2,18 +2,20 @@ import { Input, Pagination, Table, Modal, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import { FiEye, FiTrash2 } from "react-icons/fi";
-import userImg from "../../assets/Ellipse 1.png"; // Make sure the user image path is correct
+import userImg from "../../assets/Ellipse 1.png"; // Ensure correct path
 import { useDeleteUserMutation, useGetAllUserQuery } from "../../redux/feature/user/userApi";
+
 const Users = () => {
-  const [deleteUser]=useDeleteUserMutation()
-    const [page, setPage] = useState(1);
-const [search,setSearch]=useState("")
+  const [deleteUser] = useDeleteUserMutation();
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(search);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  console.log("current user-->",currentUser)
   const [activeTab, setActiveTab] = useState("user");
+
+  // Debounce search term to reduce API calls
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDebouncedSearchTerm(search);
@@ -23,33 +25,28 @@ const [search,setSearch]=useState("")
       clearTimeout(timeoutId);
     };
   }, [search]);
-const {data:allUsers,refetch}=useGetAllUserQuery({page,role:activeTab,search: debouncedSearchTerm,})
 
-  // Separate Client Data
-    const meta = allUsers?.data?.meta;
-const limit = meta?.limit;
+  const { data: allUsers, refetch } = useGetAllUserQuery({
+    page,
+    role: activeTab,
+    search: debouncedSearchTerm,
+  });
+
+  const meta = allUsers?.data?.meta;
+  const limit = meta?.limit;
   const totalItems = meta?.total;
+  const currentItems = allUsers?.data?.result;
 
-  // Calculate current items to show based on page and limit
-
-  const currentItems = allUsers?.data?.result
-    const onPageChange = (page) => {
+  const onPageChange = (page) => {
     setPage(page);
   };
-
-
-
-
 
   const columns = [
     {
       title: "S.ID",
       dataIndex: "id",
       key: "id",
-        render: (text, record, index) => {
-
-    return index + 1;
-  },
+      render: (text, record, index) => index + 1,
     },
     {
       title: "Full Name",
@@ -76,12 +73,7 @@ const limit = meta?.limit;
       title: "Joining Date",
       dataIndex: "createdAt",
       key: "createdAt",
-          render: (text) => (
-        <div className="flex items-center gap-3">
-      
-          <span>{ text.split('T')[0]}</span>
-        </div>
-      ),
+      render: (text) => <span>{text.split("T")[0]}</span>,
     },
     {
       title: "Action",
@@ -89,13 +81,13 @@ const limit = meta?.limit;
       render: (_, record) => (
         <div className="flex gap-2">
           <button
-            className=" text-black text-xl px-2 py-1 rounded"
+            className="text-black text-xl px-2 py-1 rounded"
             onClick={() => handleView(record)}
           >
             <FiEye />
           </button>
           <button
-            className=" text-red-600 text-xl px-2 py-1 rounded"
+            className="text-red-600 text-xl px-2 py-1 rounded"
             onClick={() => handleDelete(record)}
           >
             <FiTrash2 />
@@ -115,41 +107,44 @@ const limit = meta?.limit;
     setIsDeleteModalVisible(true);
   };
 
-  const handleDeleteConfirm = async() => {
-    console.log("Deleted user:", currentUser);
-          try {
-      const res = await deleteUser(currentUser?._id).unwrap()
-
-      console.log("response------->",res);
-      if(res?.success){
-        message.success(res?.message)
-        refetch()
-      setIsDeleteModalVisible(false);
-      }else{
-        message.error(res?.message)
-    setIsDeleteModalVisible(false);
+  const handleDeleteConfirm = async () => {
+    try {
+      const res = await deleteUser(currentUser?._id).unwrap();
+      if (res?.success) {
+        message.success(res?.message);
+        refetch();
+        setIsDeleteModalVisible(false);
+      } else {
+        message.error(res?.message);
+        setIsDeleteModalVisible(false);
       }
     } catch (error) {
-      console.log("login error",error)
-         message.error(error?.data?.message)
-    setIsDeleteModalVisible(false);
+      message.error(error?.data?.message);
+      setIsDeleteModalVisible(false);
     }
-
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
     setIsDeleteModalVisible(false);
   };
-     const handleSearchChange=(e)=>{
-    setSearch(e.target.value)
-  }
+
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <div className="border-2 mt-2">
       <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
         <div className="flex justify-center items-center gap-5">
           <p className="text-[#ffffff] font-title text-3xl font-bold">
-            {activeTab === "client" ? "Client List" : "Contractor List"}
+            {activeTab === "user"
+              ? "Client List"
+              : activeTab === "contractor"
+              ? "Contractor List"
+              : activeTab === "vipMember"
+              ? "VIP Member List"
+              : "VIP Contractor List"}
           </p>
         </div>
         <div className="flex gap-5">
@@ -157,7 +152,7 @@ const limit = meta?.limit;
             <Input
               type="text"
               placeholder="Search anything here..."
-                   onChange={(e) =>handleSearchChange(e)}
+              onChange={handleSearchChange}
               className="border border-[#e5eaf2] py-3 outline-none w-full rounded-xl px-3"
             />
             <span className="text-gray-500 absolute top-0 right-0 h-full px-5 flex items-center justify-center cursor-pointer">
@@ -190,6 +185,26 @@ const limit = meta?.limit;
           >
             Contractor List
           </button>
+          <button
+            onClick={() => setActiveTab("vipMember")}
+            className={`px-4 py-2 rounded border ${
+              activeTab === "vipMember"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-800 border-gray-300"
+            }`}
+          >
+            VIP Member List
+          </button>
+          <button
+            onClick={() => setActiveTab("vipContractor")}
+            className={`px-4 py-2 rounded border ${
+              activeTab === "vipContractor"
+                ? "bg-blue-600 text-white"
+                : "bg-white text-gray-800 border-gray-300"
+            }`}
+          >
+            VIP Contractor List
+          </button>
         </div>
 
         {/* Table */}
@@ -204,16 +219,14 @@ const limit = meta?.limit;
         {/* Pagination */}
         <div className="mt-4 flex justify-end">
           <Pagination
-          current={page}
-          pageSize={limit} 
-          total={totalItems} 
-          onChange={onPageChange}
-          showSizeChanger={false}
-          className="flex justify-center"
-
-          pageSizeOptions={[limit?.toString()]}
-
-        />
+            current={page}
+            pageSize={limit}
+            total={totalItems}
+            onChange={onPageChange}
+            showSizeChanger={false}
+            className="flex justify-center"
+            pageSizeOptions={[limit?.toString()]}
+          />
         </div>
       </div>
 
@@ -228,43 +241,38 @@ const limit = meta?.limit;
       >
         <div className="text-center px-8 py-4">
           <h2 className="text-2xl font-semibold text-gray-800 mb-1">
-            {activeTab === "user" ? "Client Details" : "Contractor Details"}
+            {activeTab === "user" ? "Client Details" : activeTab === "contractor" ? "Contractor Details" : "VIP Details"}
           </h2>
           <p className="text-sm text-gray-500 mb-4 uppercase">
-            See all details about {currentUser?.firstName
-}
+            See all details about {currentUser?.firstName}
           </p>
           <div className="text-left">
-            <div className="flex items-center gap-3  mb-4">
+            <div className="flex items-center gap-3 mb-4">
               <img
                 src={userImg}
                 alt="User"
                 className="w-16 h-16 rounded-full object-cover"
               />
               <h3 className="font-semibold text-lg text-gray-700 mb-3">
-                {currentUser?.firstName
-}
+                {currentUser?.firstName}
               </h3>
             </div>
           </div>
 
-          <div className="text-left  mx-auto text-sm text-gray-700 space-y-2">
+          <div className="text-left mx-auto text-sm text-gray-700 space-y-2">
             <p className="text-xl font-bold">User Information</p>
             <p>
-              <span className="font-medium">Name</span> :{" "}
-              {currentUser?.firstName
-}
+              <span className="font-medium">Name</span>: {currentUser?.firstName}
             </p>
             <p>
-              <span className="font-medium">Email</span> : {currentUser?.email}
+              <span className="font-medium">Email</span>: {currentUser?.email}
             </p>
             <p>
-              <span className="font-medium">Address</span> :{" "}
-              {currentUser?.address}
+              <span className="font-medium">Address</span>: {currentUser?.address}
             </p>
             <p>
-              <span className="font-medium">Joining Date</span> :{" "}
-              {currentUser?.createdAt.split('T')[0]}
+              <span className="font-medium">Joining Date</span>:{" "}
+              {currentUser?.createdAt.split("T")[0]}
             </p>
           </div>
         </div>

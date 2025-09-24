@@ -86,6 +86,14 @@ const othersApi = baseApi.injectEndpoints({
     
       }),
     }),
+    dashboardStats: builder.query({
+      query: () => ({
+        url: `/user/dashboard/stats`,
+        method: "GET",
+        // params:{page}
+    
+      }),
+    }),
   }),
 });
 
@@ -101,6 +109,7 @@ export const {
   useCreatePrivacyMutation,
   useGetPrivacyQuery,
   useGetTermsQuery,
-  useCreateTermsMutation
+  useCreateTermsMutation,
+  useDashboardStatsQuery
 
 } = othersApi;

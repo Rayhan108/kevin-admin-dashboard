@@ -2,14 +2,9 @@
 
 import { useState } from "react";
 import dayjs from "dayjs";
-
-import { SlArrowLeft } from "react-icons/sl";
 import Overview from "../../components/Overview/Overview";
-import PracticeSession from "../../components/PracticeSession/PracticeSession";
-
 import { ConfigProvider } from "antd";
 import UserTable from "../../components/RecentActivity/UserTable";
-
 
 
 function DashboardPage() {
@@ -30,35 +25,33 @@ function DashboardPage() {
 
   return (
     <div className=" container mx-auto font-title mb-5">
-        <div className="flex justify-between my-2"> 
- 
-        </div>
-      <div className="flex flex-col justify-between items-center pt-0 mt-0 mb-1">
-
-      </div>
+      <div className="flex justify-between my-2"></div>
+      <div className="flex flex-col justify-between items-center pt-0 mt-0 mb-1"></div>
       {/* main content */}
       <Overview />
-      <PracticeSession/>
+      {/* <PracticeSession/> */}
+      <h1 className="text-xl font-bold my-5 text-black">Recent User</h1>
       <div className=" w-[100%]">
-     
-            <ConfigProvider
-      theme={{
-        token: {
-          colorPrimary: "#1890ff",
-        },
-        components: {
-          Table: {
-            headerBg: "#2C3E50",
-            headerColor: "#ffffff",
-          },
-        },
-      }}
-    >
-      <div className="App" style={{ minHeight: "", backgroundColor: "#f5f5f5" }}>
-        <UserTable />
-      </div>
-    </ConfigProvider>
-    
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#1890ff",
+            },
+            components: {
+              Table: {
+                headerBg: "#2C3E50",
+                headerColor: "#ffffff",
+              },
+            },
+          }}
+        >
+          <div
+            className="App"
+            style={{ minHeight: "", backgroundColor: "#f5f5f5" }}
+          >
+            <UserTable />
+          </div>
+        </ConfigProvider>
       </div>
     </div>
   );

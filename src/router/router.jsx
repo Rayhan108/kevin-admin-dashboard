@@ -27,7 +27,7 @@ import Privacy from "../pages/Privacy/Privacy";
 import Terms from "../pages/Terms/Terms";
 import NotificationDetails from "../pages/Notification/NotificationDetails";
 import Notification from "../pages/Notification/Notification";
-import Signin from "../pages/Signin/Signin"
+
 import PrivetRoutes from "./PrivetRoute";
 import DocVerify from "../pages/DocVerify/DocVerify";
 

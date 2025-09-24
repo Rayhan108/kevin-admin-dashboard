@@ -30,6 +30,7 @@ import Notification from "../pages/Notification/Notification";
 
 import PrivetRoutes from "./PrivetRoute";
 import DocVerify from "../pages/DocVerify/DocVerify";
+import Signin from "../pages/SignIn/Signin";
 
 const router = createBrowserRouter([
   {

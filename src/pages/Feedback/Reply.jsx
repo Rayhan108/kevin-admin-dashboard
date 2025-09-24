@@ -101,18 +101,10 @@ const id = selectedFeedback?.userId
 
             {/* Buttons */}
             <div className="flex justify-between gap-4 pt-4">
-              <Link to="/feedback" className="w-1/2">
-                <button
-                  type="button"
-                  className="w-full border border-blue-600 text-blue-600 px-6 py-2 rounded-lg hover:bg-blue-50 transition"
-                  onClick={() => reset()}
-                >
-                  Cancel
-                </button>
-              </Link>
+        
               <button
                 type="submit"
-                className="w-1/2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition shadow"
+                className="w-full bg-gradient-to-l from-blue-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition shadow"
               >
                 Send Feedback
               </button>

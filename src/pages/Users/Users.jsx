@@ -4,7 +4,6 @@ import { IoSearch } from "react-icons/io5";
 import { FiEye, FiTrash2 } from "react-icons/fi";
 import userImg from "../../assets/Ellipse 1.png"; // Make sure the user image path is correct
 import { useDeleteUserMutation, useGetAllUserQuery } from "../../redux/feature/user/userApi";
-
 const Users = () => {
   const [deleteUser]=useDeleteUserMutation()
     const [page, setPage] = useState(1);

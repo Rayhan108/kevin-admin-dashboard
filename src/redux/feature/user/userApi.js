@@ -15,7 +15,21 @@ const userApi = baseApi.injectEndpoints({
         method: "Delete",
       }),
     }),
+       updateProfile: builder.mutation({
+      query: ({id,payload}) => ({
+        url: `/user/edit-profile/${id}`,
+        method: "PATCH",
+        body:payload
+      }),
+    }),
+    specUser: builder.query({
+      query: (id) => ({
+        url: `/user/retrive/${id}`,
+        method: "GET",
+       
+      }),
+    }),
   }),
 });
 
-export const { useGetAllUserQuery, useDeleteUserMutation } = userApi;
+export const { useGetAllUserQuery, useDeleteUserMutation,useUpdateProfileMutation,useSpecUserQuery } = userApi;

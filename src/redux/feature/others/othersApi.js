@@ -52,6 +52,32 @@ const othersApi = baseApi.injectEndpoints({
         body:payload,
       }),
     }),
+    createPrivacy: builder.mutation({
+      query: (payload) => ({
+        url: `/privacy/create-or-update`,
+        method: "POST",
+        body:payload,
+      }),
+    }),
+    createTerms: builder.mutation({
+      query: (payload) => ({
+        url: `/terms/create-or-update`,
+        method: "POST",
+        body:payload,
+      }),
+    }),
+         getTerms: builder.query({
+      query: () => ({
+        url:`/terms/retrive`,
+        method: "GET",      
+      }),
+    }),
+     getPrivacy: builder.query({
+      query: () => ({
+        url:`/privacy/retrive`,
+        method: "GET",      
+      }),
+    }),
     allBlogs: builder.query({
       query: (page) => ({
         url: `/article/allArticle`,
@@ -71,5 +97,10 @@ export const {
   useCreateBlogsMutation,
   useAllBlogsQuery,
   useUpdateBlogStatusMutation,
-  useDeleteBlogMutation
+  useDeleteBlogMutation,
+  useCreatePrivacyMutation,
+  useGetPrivacyQuery,
+  useGetTermsQuery,
+  useCreateTermsMutation
+
 } = othersApi;

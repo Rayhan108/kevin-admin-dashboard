@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import JoditEditor from "jodit-react";
+import { useCreatePrivacyMutation, useGetPrivacyQuery } from "../../redux/feature/others/othersApi";
+import { message } from "antd";
 
 const Privacy = () => {
       const editor = useRef(null);
@@ -20,11 +22,70 @@ const Privacy = () => {
         }
       }, []);
     
-      // Function to handle saving the content to localStorage
-      const handleSave = () => {
-        localStorage.setItem("termsContent", content);
-        alert("Changes saved!");
-      };
+
+
+
+
+
+
+
+
+
+  const { data: privacy, refetch } = useGetPrivacyQuery(undefined);
+  const privacyData = privacy?.data?.privacyPolicy;
+  console.log("privacy data from backend-->", privacyData);
+
+  const [addPrivacy] = useCreatePrivacyMutation();
+  // Load saved content from localStorage when the page loads
+  useEffect(() => {
+    const savedContent = localStorage.getItem("privacyPolicyContent");
+    if (savedContent) {
+      setContent(savedContent);
+    }
+    // else{
+    //   setContent(privacyData)
+    // }
+  }, []);
+
+  // Save content to localStorage whenever it changes
+  const handleSave = async () => {
+    localStorage.setItem("privacyPolicyContent", content);
+    const privacyContent = {
+      privacyPolicy: content,
+    };
+    console.log("privacy content->", privacyContent);
+    // message.success("Privacy Policy Saved Successfully!");
+    try {
+      const res = await addPrivacy(privacyContent).unwrap();
+      console.log("privacy content response ---->", res);
+      if (res?.success) {
+        message.success(res?.message);
+        refetch();
+      } else {
+        message.error(res?.error);
+      }
+    } catch (error) {
+      message.error(error.data?.message);
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <div>
             <div className="flex justify-between font-title bg-[#2C3E50] px-3 py-2 rounded-md">
@@ -38,7 +99,7 @@ const Privacy = () => {
         <div className="mt-5 text-black">
           <JoditEditor
             ref={editor}
-            value={content}
+            value={privacyData}
             config={config}
             tabIndex={1}
             onBlur={(newContent) => setContent(newContent)}

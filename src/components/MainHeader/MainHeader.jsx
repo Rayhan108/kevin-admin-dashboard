@@ -14,13 +14,13 @@ const MainHeader = ({ toggleSidebar }) => {
             <GiHamburgerMenu className="text-3xl text-black" />
           </div>
           <div className="flex gap-5 items-center">
-            <div>
+            {/* <div>
               <Link to={"/notification"}>
                 <Badge count={5}>
                   <IoIosNotificationsOutline className="text-black  bg-white rounded-full border border-black w-8 h-8 p-1 text-4xl" />
                 </Badge>
               </Link>
-            </div>
+            </div> */}
             <div
               onClick={() => navigate("/setting/updateProfile")}
               className="flex items-center gap-2  px-5 py-2 "
